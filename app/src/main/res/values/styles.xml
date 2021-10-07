@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="main_temp_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_weight">0.25</item>
+    </style>
+
+    <style name="details">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">0.5</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:padding">5dp</item>
+    </style>
+
+    <style name="detail_value">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">0.5</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:layout_marginEnd">16dp</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:gravity">end</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+</resources>
