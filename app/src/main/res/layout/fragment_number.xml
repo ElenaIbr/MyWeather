@@ -201,13 +201,15 @@
                 style="@style/detail_value" />
         </TableRow>
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/cloudinessRow"
+            tools:listitem="@layout/day_item"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/today_weather"
-        tools:listitem="@layout/day_item"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

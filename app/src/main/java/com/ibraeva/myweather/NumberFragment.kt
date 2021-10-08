@@ -41,47 +41,72 @@ class NumberFragment : Fragment() {
     lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private var adapterWeek: WeekAdapter? = null
 
+    var recycle: RecyclerView? = null
+
     var itemList = MutableList(7) { DayShortInfo() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+
+
         return inflater.inflate(R.layout.fragment_number, container, false)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+
         arguments?.takeIf { it.containsKey(ARG_OBJECT) }?.apply {
             //val textView: TextView = view.findViewById(R.id.textView)
             //textView.text = getInt(ARG_OBJECT).toString()
 
-            fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(appActivity)
+            //val todayWeather: ConstraintLayout = view.findViewById(R.id.today_weather)
 
-            checkPermissions()
 
-            val recycle: RecyclerView = view.findViewById(R.id.recycle)
-            val todayWeather: ConstraintLayout = view.findViewById(R.id.today_weather)
-            if(getInt(ARG_OBJECT)==1){
 
-                todayWeather.visibility = View.VISIBLE
-                recycle.visibility = View.GONE
-            }
-            else{
-                todayWeather.visibility = View.GONE
-                recycle.visibility = View.VISIBLE
+            if (getInt(ARG_OBJECT) == 1) {
 
-                val rcView = appActivity.findViewById<RecyclerView>(R.id.recycle)
-                rcView.layoutManager = LinearLayoutManager(appActivity)
+                //todayWeather.visibility = View.VISIBLE
+                //recycle?.visibility = View.GONE
+            } else {
 
-                adapterWeek = WeekAdapter(itemList, appActivity)
-                rcView.adapter = adapterWeek
+                //Log.d("R", "2")
+                //todayWeather.visibility = View.GONE
+                //recycle?.visibility = View.VISIBLE
+
+
             }
         }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+
+        // Inflate the layout for this fragment
+
+        fusedLocationProviderClient =
+            LocationServices.getFusedLocationProviderClient(appActivity)
+
+        checkPermissions()
+
+
+        recycle = appActivity.findViewById(R.id.recycle)
+        recycle?.layoutManager = LinearLayoutManager(appActivity)
+        adapterWeek = WeekAdapter(itemList, appActivity)
+        recycle?.adapter = adapterWeek
+
+        /*fusedLocationProviderClient =
+            LocationServices.getFusedLocationProviderClient(appActivity)
+
+        checkPermissions()*/
+
+        //val recycle: RecyclerView = view.findViewById(R.id.recycle)
+
+
+
+
     }
 
     private fun checkPermissions() {
@@ -160,8 +185,10 @@ class NumberFragment : Fragment() {
                 appActivity.findViewById<TextView>(R.id.date).text = getDate(it.daily[0].dt)
                 appActivity.findViewById<TextView>(R.id.currentTemp).text =
                     toCelsius(ceil(it.daily[0].temp.day))
-                appActivity.findViewById<ImageView>(R.id.main_img).setImageResource(getImage(it.daily[0].weather[0].id))
-                appActivity.findViewById<TextView>(R.id.description).text = it.daily[0].weather[0].description
+                appActivity.findViewById<ImageView>(R.id.main_img)
+                    .setImageResource(getImage(it.daily[0].weather[0].id))
+                appActivity.findViewById<TextView>(R.id.description).text =
+                    it.daily[0].weather[0].description
 
                 appActivity.findViewById<TextView>(R.id.tempMorn).text =
                     "Morning\n" + toCelsius(it.daily[0].temp.morn)
@@ -176,18 +203,18 @@ class NumberFragment : Fragment() {
                     it.daily[0].wind_speed.toString() + " m/sec"
                 appActivity.findViewById<TextView>(R.id.pressure).text =
                     it.daily[0].pressure.toString() + " hPa"
-                appActivity.findViewById<TextView>(R.id.humidity).text = it.daily[0].humidity.toString() + " %"
-                appActivity.findViewById<TextView>(R.id.cloudiness).text = it.daily[0].clouds.toString() + " %"
+                appActivity.findViewById<TextView>(R.id.humidity).text =
+                    it.daily[0].humidity.toString() + " %"
+                appActivity.findViewById<TextView>(R.id.cloudiness).text =
+                    it.daily[0].clouds.toString() + " %"
 
 
-                for(i in 0 until itemList.size){
+                for (i in 0 until itemList.size) {
                     itemList[i].dt = it.daily[i].dt
                     itemList[i].temp = it.daily[i].temp.day
                     itemList[i].id = it.daily[i].weather[0].id
                     itemList[i].des = it.daily[i].weather[0].description
                 }
-
-
 
             },
             {
